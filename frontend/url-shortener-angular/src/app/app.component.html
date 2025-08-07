@@ -1,0 +1,26 @@
+<header class="main-header">
+  <h1>{{ title }}</h1>
+
+  <nav class="nav">
+    <ng-container *ngIf="isLoggedIn">
+      <span class="user-greeting">Hello, {{ getUsername() }}</span>
+      <span class="divider"></span>
+    </ng-container>
+
+    <a routerLink="/urls">URLs</a>
+    <a routerLink="/about">About</a>
+
+    <ng-container *ngIf="isLoggedIn; else guestLinks">
+      <button (click)="logout()">Logout</button>
+    </ng-container>
+
+    <ng-template #guestLinks>
+      <a routerLink="/login">Login</a>
+      <a routerLink="/register">Register</a>
+    </ng-template>
+  </nav>
+</header>
+
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>

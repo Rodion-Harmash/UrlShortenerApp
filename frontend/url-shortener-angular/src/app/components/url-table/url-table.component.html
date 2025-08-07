@@ -1,0 +1,54 @@
+<h2>Your Shortened URLs</h2>
+
+<div class="add-url-form" *ngIf="isAuthenticated; else loginMessage">
+  <input type="text" [(ngModel)]="newUrl" placeholder="Enter a URL to shorten">
+  <button (click)="addUrl()">Shorten</button>
+</div>
+
+<ng-template #loginMessage>
+  <p class="info-message">Only authorized users can shorten URLs.</p>
+</ng-template>
+
+<table *ngIf="urls.length > 0">
+  <thead>
+    <tr>
+      <th (click)="sortBy('originalUrl')" style="cursor: pointer;">
+        Original URL
+        <span *ngIf="sortColumn === 'originalUrl'">({{ sortDirection }})</span>
+      </th>
+      <th>Short URL</th>
+      <th *ngIf="isAuthenticated">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let url of urls">
+      <td>{{ url.originalUrl }}</td>
+      <td>
+        <a [href]="'http://localhost:5020/s/' + url.shortCode" target="_blank">
+          http://localhost:5020/s/{{ url.shortCode }}
+        </a>
+        <button 
+          class="copy-button"
+          [class.copied]="copyStatus[url.id]" 
+          (click)="copyToClipboard(url.id, url.shortCode)">
+          {{ copyStatus[url.id] ? 'Copied!' : 'Copy' }}
+        </button>
+      </td>
+      <td *ngIf="isAuthenticated">
+        <button
+          *ngIf="url.createdByDisplayName === currentDisplayName || isAdmin"
+          (click)="viewDetails(url.id)">
+          Details
+        </button>
+        <button
+          *ngIf="url.createdByDisplayName === currentDisplayName || isAdmin"
+          (click)="deleteUrl(url.id)">
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="urls.length === 0">No URLs found.</p>
+<p class="error" *ngIf="error">{{ error }}</p>

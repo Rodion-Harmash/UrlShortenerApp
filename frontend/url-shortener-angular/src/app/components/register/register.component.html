@@ -1,0 +1,71 @@
+<div class="register-container">
+  <h2>Register</h2>
+
+  <form (ngSubmit)="register()" #registerForm="ngForm" autocomplete="off">
+  <!-- Chrome honeypot bait -->
+  <input type="text" name="fake-user" style="display:none" autocomplete="username">
+  <input type="password" name="fake-pass" style="display:none" autocomplete="new-password">
+
+  <label for="usr">Username</label>
+  <input
+    type="text"
+    id="usr"
+    name="usr123"
+    [(ngModel)]="registerData.userName"
+    required
+    [attr.autocomplete]="'off'"
+    autocorrect="off"
+    autocapitalize="none"
+    spellcheck="false"
+  >
+
+  <label for="eml">Email</label>
+  <input
+    type="email"
+    id="eml"
+    name="eml456"
+    [(ngModel)]="registerData.email"
+    required
+    [attr.autocomplete]="'off'"
+    autocorrect="off"
+    autocapitalize="none"
+    spellcheck="false"
+  >
+
+  <label for="dname">Display Name</label>
+  <input
+    type="text"
+    id="dname"
+    name="dname789"
+    [(ngModel)]="registerData.displayName"
+    required
+    [attr.autocomplete]="'off'"
+    autocorrect="off"
+    autocapitalize="none"
+    spellcheck="false"
+  >
+
+  <label for="pass">Password</label>
+  <input
+    type="password"
+    id="pass"
+    name="psw999"
+    [(ngModel)]="registerData.password"
+    required
+    [attr.autocomplete]="'new-password'"
+  >
+
+  <button type="submit" [disabled]="registerForm.invalid">Register</button>
+
+  <ul class="error" *ngIf="errors.length > 0">
+    <li *ngFor="let e of errors">{{ e }}</li>
+  </ul>
+</form>
+
+
+  <div *ngIf="errors.length > 0" class="error">
+    <ul>
+      <li *ngFor="let err of errors">{{ err }}</li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="url-info-container" *ngIf="url">
+  <h2>URL Details</h2>
+
+  <p><strong>Original URL:</strong> {{ url.originalUrl }}</p>
+
+  <p>
+    <strong>Short URL:</strong>
+    <a [href]="'http://localhost:5020/s/' + url.shortCode" target="_blank">
+      http://localhost:5020/s/{{ url.shortCode }}
+    </a>
+    <button
+      class="copy-button"
+      [class.copied]="copySuccess"
+      (click)="copyToClipboard()"
+    >
+      {{ copySuccess ? 'Copied!' : 'Copy' }}
+    </button>
+  </p>
+
+  <p><strong>Created At:</strong> {{ url.createdAt | date: 'short' }}</p>
+  <p><strong>Created By:</strong> {{ url.createdByDisplayName || 'N/A' }}</p>
+  <p><strong>Click Count:</strong> {{ url.clickCount }}</p>
+
+  <button (click)="goBack()">Back</button>
+</div>
+
+<p class="error" *ngIf="error">{{ error }}</p>

@@ -1,0 +1,33 @@
+<div class="about-container" *ngIf="about">
+  <h2>About the Shortening Algorithm</h2>
+
+  <!-- Admin: View or Edit Mode -->
+  <div *ngIf="isAdmin">
+    <div *ngIf="!isEditing">
+      <p>{{ about.content }}</p>
+      <button (click)="startEdit()">Edit</button>
+    </div>
+
+    <div *ngIf="isEditing">
+      <textarea [(ngModel)]="content" rows="10"></textarea>
+      <div class="button-group">
+        <button (click)="save()">Save</button>
+        <button class="cancel" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Non-admin -->
+  <div *ngIf="!isAdmin">
+    <p>{{ about.content }}</p>
+  </div>
+
+  <p><strong>Last Edited:</strong> {{ about.lastEditedAt | date:'short' }}</p>
+  <p><strong>Edited By:</strong> {{ about.editedByDisplayName }}</p>
+
+  <p class="success" *ngIf="success">Saved successfully.</p>
+  <p class="error" *ngIf="error">{{ error }}</p>
+</div>
+
+<p *ngIf="!about && !error">No content available.</p>
+<p class="error" *ngIf="error">{{ error }}</p>
