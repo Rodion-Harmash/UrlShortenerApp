@@ -43,7 +43,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// CORS (для Angular)
+// CORS (Angular)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontendPolicy", policy =>
