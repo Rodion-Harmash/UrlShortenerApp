@@ -19,14 +19,12 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Підписка на статус логіна
     this.authService.isLoggedIn$.subscribe(status => {
       this.isLoggedIn = status;
       this.isAdmin = this.authService.isAdmin();
       this.username = this.extractUsername();
     });
 
-    // Якщо перезавантаження сторінки, оновлюємо ім'я вручну
     if (this.authService.isLoggedIn()) {
       this.username = this.extractUsername();
     }
@@ -43,7 +41,6 @@ export class AppComponent implements OnInit {
 
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      // Перевірити поля, які можуть містити ім'я
       return (
         payload['unique_name'] ||
         payload['name'] ||
