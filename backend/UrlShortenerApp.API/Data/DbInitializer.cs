@@ -47,7 +47,6 @@ namespace UrlShortenerApp.API.Data
                 }
             }
 
-            // === Add AboutInfo seed ===
             if (!await context.AboutInfos.AnyAsync())
             {
                 var about = new AboutInfo
